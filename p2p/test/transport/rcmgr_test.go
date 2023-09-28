@@ -9,13 +9,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
-	mocknetwork "github.com/libp2p/go-libp2p/core/network/mocks"
-	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/libp2p/go-libp2p/p2p/protocol/identify"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 	"github.com/stretchr/testify/require"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
+	mocknetwork "github.com/zbliujia/go-libp2p/core/network/mocks"
+	"github.com/zbliujia/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/p2p/protocol/identify"
+	"github.com/zbliujia/go-libp2p/p2p/protocol/ping"
 	"go.uber.org/mock/gomock"
 )
 

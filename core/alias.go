@@ -2,10 +2,10 @@
 package core
 
 import (
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/libp2p/go-libp2p/core/protocol"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/core/protocol"
 
 	"github.com/multiformats/go-multiaddr"
 )

@@ -3,10 +3,10 @@ package autonat
 import (
 	"time"
 
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/p2p/host/autonat/pb"
-	"github.com/libp2p/go-libp2p/p2p/metricshelper"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/p2p/host/autonat/pb"
+	"github.com/zbliujia/go-libp2p/p2p/metricshelper"
 )
 
 const metricNamespace = "libp2p_autonat"

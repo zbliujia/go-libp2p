@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/p2p/transport/tcp"
-	"github.com/libp2p/go-libp2p/p2p/transport/websocket"
+	"github.com/zbliujia/go-libp2p"
+	"github.com/zbliujia/go-libp2p/p2p/transport/tcp"
+	"github.com/zbliujia/go-libp2p/p2p/transport/websocket"
 
-	"github.com/libp2p/go-libp2p/core/peer"
 	"github.com/multiformats/go-multiaddr"
+	"github.com/zbliujia/go-libp2p/core/peer"
 )
 
 func main() {

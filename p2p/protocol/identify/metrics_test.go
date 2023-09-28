@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/libp2p/go-libp2p/core/event"
+	"github.com/zbliujia/go-libp2p/core/event"
 )
 
 func TestMetricsNoAllocNoCover(t *testing.T) {

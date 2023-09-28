@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/peerstore"
-	"github.com/libp2p/go-libp2p/core/protocol"
 	"github.com/multiformats/go-multiaddr"
+	"github.com/zbliujia/go-libp2p"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/peerstore"
+	"github.com/zbliujia/go-libp2p/core/protocol"
 )
 
 // newHost illustrates how to build a libp2p host with secio using

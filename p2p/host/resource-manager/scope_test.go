@@ -5,8 +5,8 @@ import (
 	"testing"
 	"testing/quick"
 
-	"github.com/libp2p/go-libp2p/core/network"
 	"github.com/stretchr/testify/require"
+	"github.com/zbliujia/go-libp2p/core/network"
 )
 
 func checkResources(t *testing.T, rc *resources, st network.ScopeStat) {

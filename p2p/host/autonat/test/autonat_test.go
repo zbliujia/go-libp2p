@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/core/event"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/p2p/host/autonat"
+	"github.com/zbliujia/go-libp2p"
+	"github.com/zbliujia/go-libp2p/core/event"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/p2p/host/autonat"
 
 	"github.com/stretchr/testify/require"
 )

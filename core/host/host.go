@@ -6,12 +6,12 @@ package host
 import (
 	"context"
 
-	"github.com/libp2p/go-libp2p/core/connmgr"
-	"github.com/libp2p/go-libp2p/core/event"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/libp2p/go-libp2p/core/peerstore"
-	"github.com/libp2p/go-libp2p/core/protocol"
+	"github.com/zbliujia/go-libp2p/core/connmgr"
+	"github.com/zbliujia/go-libp2p/core/event"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/core/peerstore"
+	"github.com/zbliujia/go-libp2p/core/protocol"
 
 	ma "github.com/multiformats/go-multiaddr"
 )

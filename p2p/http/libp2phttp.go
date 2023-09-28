@@ -18,12 +18,12 @@ import (
 
 	lru "github.com/hashicorp/golang-lru/v2"
 	logging "github.com/ipfs/go-log/v2"
-	host "github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/libp2p/go-libp2p/core/peerstore"
-	"github.com/libp2p/go-libp2p/core/protocol"
-	gostream "github.com/libp2p/go-libp2p/p2p/net/gostream"
+	host "github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/core/peerstore"
+	"github.com/zbliujia/go-libp2p/core/protocol"
+	gostream "github.com/zbliujia/go-libp2p/p2p/net/gostream"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

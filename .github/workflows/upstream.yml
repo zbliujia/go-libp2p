@@ -42,7 +42,7 @@ jobs:
       - name: Patch in new go-libp2p
         working-directory: upstream
         run: |
-          go mod edit -replace "github.com/libp2p/go-libp2p=../libp2p"
+          go mod edit -replace "github.com/zbliujia/go-libp2p=../libp2p"
           go mod tidy
       - name: Run tests
         working-directory: upstream

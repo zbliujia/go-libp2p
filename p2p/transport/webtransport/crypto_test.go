@@ -17,9 +17,9 @@ import (
 	"testing"
 	"time"
 
-	ic "github.com/libp2p/go-libp2p/core/crypto"
 	"github.com/multiformats/go-multihash"
 	"github.com/stretchr/testify/require"
+	ic "github.com/zbliujia/go-libp2p/core/crypto"
 )
 
 func sha256Multihash(t *testing.T, b []byte) multihash.DecodedMultihash {

@@ -7,7 +7,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
-	peer "github.com/libp2p/go-libp2p/core/peer"
+	peer "github.com/zbliujia/go-libp2p/core/peer"
 )
 
 const pubsubTopic = "/libp2p/example/chat/1.0.0"

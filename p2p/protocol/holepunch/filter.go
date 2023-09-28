@@ -1,8 +1,8 @@
 package holepunch
 
 import (
-	"github.com/libp2p/go-libp2p/core/peer"
 	ma "github.com/multiformats/go-multiaddr"
+	"github.com/zbliujia/go-libp2p/core/peer"
 )
 
 // WithAddrFilter is a Service option that enables multiaddress filtering.

@@ -3,10 +3,10 @@ package holepunch
 import (
 	"testing"
 
-	"github.com/libp2p/go-libp2p/core/network"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"
+	"github.com/zbliujia/go-libp2p/core/network"
 )
 
 func getCounterValue(t *testing.T, counter *prometheus.CounterVec, labels ...string) int {

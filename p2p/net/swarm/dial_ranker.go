@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/libp2p/go-libp2p/core/network"
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr/net"
+	"github.com/zbliujia/go-libp2p/core/network"
 )
 
 // The 250ms value is from happy eyeballs RFC 8305. This is a rough estimate of 1 RTT

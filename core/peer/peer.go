@@ -7,10 +7,10 @@ import (
 	"strings"
 
 	"github.com/ipfs/go-cid"
-	ic "github.com/libp2p/go-libp2p/core/crypto"
 	b58 "github.com/mr-tron/base58/base58"
 	mc "github.com/multiformats/go-multicodec"
 	mh "github.com/multiformats/go-multihash"
+	ic "github.com/zbliujia/go-libp2p/core/crypto"
 )
 
 var (

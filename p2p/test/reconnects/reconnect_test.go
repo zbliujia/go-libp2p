@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/core/protocol"
-	bhost "github.com/libp2p/go-libp2p/p2p/host/basic"
-	swarmt "github.com/libp2p/go-libp2p/p2p/net/swarm/testing"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/protocol"
+	bhost "github.com/zbliujia/go-libp2p/p2p/host/basic"
+	swarmt "github.com/zbliujia/go-libp2p/p2p/net/swarm/testing"
 
 	"github.com/stretchr/testify/require"
 )

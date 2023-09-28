@@ -15,20 +15,20 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/config"
-	"github.com/libp2p/go-libp2p/core/connmgr"
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
-	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/libp2p/go-libp2p/core/sec"
-	rcmgr "github.com/libp2p/go-libp2p/p2p/host/resource-manager"
-	"github.com/libp2p/go-libp2p/p2p/muxer/yamux"
-	"github.com/libp2p/go-libp2p/p2p/net/swarm"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
-	"github.com/libp2p/go-libp2p/p2p/security/noise"
-	tls "github.com/libp2p/go-libp2p/p2p/security/tls"
-	libp2pwebrtc "github.com/libp2p/go-libp2p/p2p/transport/webrtc"
+	"github.com/zbliujia/go-libp2p"
+	"github.com/zbliujia/go-libp2p/config"
+	"github.com/zbliujia/go-libp2p/core/connmgr"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/core/sec"
+	rcmgr "github.com/zbliujia/go-libp2p/p2p/host/resource-manager"
+	"github.com/zbliujia/go-libp2p/p2p/muxer/yamux"
+	"github.com/zbliujia/go-libp2p/p2p/net/swarm"
+	"github.com/zbliujia/go-libp2p/p2p/protocol/ping"
+	"github.com/zbliujia/go-libp2p/p2p/security/noise"
+	tls "github.com/zbliujia/go-libp2p/p2p/security/tls"
+	libp2pwebrtc "github.com/zbliujia/go-libp2p/p2p/transport/webrtc"
 
 	"github.com/multiformats/go-multiaddr"
 	"github.com/stretchr/testify/require"
@@ -239,9 +239,9 @@ func TestBigPing(t *testing.T) {
 
 // TestLotsOfDataManyStreams tests sending a lot of data on multiple streams.
 func TestLotsOfDataManyStreams(t *testing.T) {
-	// Skip on windows because of https://github.com/libp2p/go-libp2p/issues/2341
+	// Skip on windows because of https://github.com/zbliujia/go-libp2p/issues/2341
 	if runtime.GOOS == "windows" {
-		t.Skip("Skipping on windows because of https://github.com/libp2p/go-libp2p/issues/2341")
+		t.Skip("Skipping on windows because of https://github.com/zbliujia/go-libp2p/issues/2341")
 	}
 
 	// 64k buffer

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"io"
 
-	pb "github.com/libp2p/go-libp2p/core/crypto/pb"
-	"github.com/libp2p/go-libp2p/core/internal/catch"
+	pb "github.com/zbliujia/go-libp2p/core/crypto/pb"
+	"github.com/zbliujia/go-libp2p/core/internal/catch"
 
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 	"github.com/decred/dcrd/dcrec/secp256k1/v4/ecdsa"
-	"github.com/libp2p/go-libp2p/internal/sha256"
+	"github.com/zbliujia/go-libp2p/internal/sha256"
 )
 
 // Secp256k1PrivateKey is a Secp256k1 private key

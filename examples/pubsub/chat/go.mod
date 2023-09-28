@@ -1,10 +1,10 @@
-module github.com/libp2p/go-libp2p/examples/pubsub/chat
+module github.com/zbliujia/go-libp2p/examples/pubsub/chat
 
 go 1.20
 
 require (
 	github.com/gdamore/tcell/v2 v2.5.2
-	github.com/libp2p/go-libp2p v0.31.0
+	github.com/zbliujia/go-libp2p v0.31.0
 	github.com/libp2p/go-libp2p-pubsub v0.9.0
 	github.com/rivo/tview v0.0.0-20220307222120-9994674d60a8
 )

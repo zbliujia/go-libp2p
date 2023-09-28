@@ -3,10 +3,10 @@ package autorelay
 import (
 	"errors"
 
-	"github.com/libp2p/go-libp2p/p2p/metricshelper"
-	"github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/client"
-	pbv2 "github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/pb"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/zbliujia/go-libp2p/p2p/metricshelper"
+	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
+	pbv2 "github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/pb"
 )
 
 const metricNamespace = "libp2p_autorelay"

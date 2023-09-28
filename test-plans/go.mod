@@ -1,10 +1,10 @@
-module github.com/libp2p/go-libp2p/test-plans/m/v2
+module github.com/zbliujia/go-libp2p/test-plans/m/v2
 
 go 1.20
 
 require (
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/libp2p/go-libp2p v0.0.0
+	github.com/zbliujia/go-libp2p v0.0.0
 	github.com/multiformats/go-multiaddr v0.11.0
 )
 
@@ -118,4 +118,4 @@ require (
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
 
-replace github.com/libp2p/go-libp2p => ../
+replace github.com/zbliujia/go-libp2p => ../

@@ -1,7 +1,7 @@
 package peerstore
 
 import (
-	"github.com/libp2p/go-libp2p/core/peer"
+	"github.com/zbliujia/go-libp2p/core/peer"
 )
 
 // AddrInfos returns an AddrInfo for each specified peer ID, in-order.

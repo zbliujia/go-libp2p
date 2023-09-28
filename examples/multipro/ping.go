@@ -6,12 +6,12 @@ import (
 	"log"
 	"sync"
 
-	"github.com/libp2p/go-libp2p/core/host"
-	"github.com/libp2p/go-libp2p/core/network"
+	"github.com/zbliujia/go-libp2p/core/host"
+	"github.com/zbliujia/go-libp2p/core/network"
 
 	proto "github.com/gogo/protobuf/proto"
 	uuid "github.com/google/uuid"
-	p2p "github.com/libp2p/go-libp2p/examples/multipro/pb"
+	p2p "github.com/zbliujia/go-libp2p/examples/multipro/pb"
 )
 
 // pattern: /protocol-name/request-or-response-message/version

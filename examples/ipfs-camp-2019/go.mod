@@ -1,10 +1,10 @@
-module github.com/libp2p/go-libp2p/examples/ipfs-camp-2019
+module github.com/zbliujia/go-libp2p/examples/ipfs-camp-2019
 
 go 1.20
 
 require (
 	github.com/gogo/protobuf v1.3.2
-	github.com/libp2p/go-libp2p v0.31.0
+	github.com/zbliujia/go-libp2p v0.31.0
 	github.com/libp2p/go-libp2p-kad-dht v0.21.0
 	github.com/libp2p/go-libp2p-pubsub v0.9.0
 	github.com/multiformats/go-multiaddr v0.11.0

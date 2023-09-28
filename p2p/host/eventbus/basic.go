@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/libp2p/go-libp2p/core/event"
+	"github.com/zbliujia/go-libp2p/core/event"
 )
 
 // /////////////////////
