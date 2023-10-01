@@ -54,6 +54,7 @@ require (
 	github.com/quic-go/quic-go v0.38.1
 	github.com/quic-go/webtransport-go v0.5.3
 	github.com/stretchr/testify v1.8.4
+	github.com/wlynxg/anet v0.0.0-20230919012416-aa9594d8ec61
 	go.uber.org/fx v1.20.0
 	go.uber.org/goleak v1.2.0
 	go.uber.org/mock v0.3.0

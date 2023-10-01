@@ -4,12 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
-	"net"
-	"sync"
-	"time"
-
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/wlynxg/anet"
 	"github.com/zbliujia/go-libp2p/core/connmgr"
 	"github.com/zbliujia/go-libp2p/core/crypto"
 	"github.com/zbliujia/go-libp2p/core/event"
@@ -29,6 +25,10 @@ import (
 	"github.com/zbliujia/go-libp2p/p2p/protocol/identify"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/ping"
 	libp2pwebtransport "github.com/zbliujia/go-libp2p/p2p/transport/webtransport"
+	"io"
+	"net"
+	"sync"
+	"time"
 
 	"github.com/libp2p/go-netroute"
 
@@ -349,6 +349,26 @@ func (h *BasicHost) updateLocalIpAddr() {
 
 	// Resolve the interface addresses
 	ifaceAddrs, err := manet.InterfaceMultiaddrs()
+	if err != nil {
+		addrs, e := anet.InterfaceAddrs()
+		//addrs, e := net.InterfaceAddrs()
+		if e != nil {
+			err = e
+		} else {
+			maddrs := make([]ma.Multiaddr, len(addrs))
+			for i, a := range addrs {
+				maddrs[i], e = manet.FromNetAddr(a)
+				if e != nil {
+					break
+				}
+			}
+			if e != nil {
+				err = e
+			} else {
+				ifaceAddrs = maddrs
+			}
+		}
+	}
 	if err != nil {
 		// This usually shouldn't happen, but we could be in some kind
 		// of funky restricted environment.
