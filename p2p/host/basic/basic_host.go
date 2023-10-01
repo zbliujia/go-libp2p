@@ -365,6 +365,7 @@ func (h *BasicHost) updateLocalIpAddr() {
 			if e != nil {
 				err = e
 			} else {
+				err = nil
 				ifaceAddrs = maddrs
 			}
 		}
