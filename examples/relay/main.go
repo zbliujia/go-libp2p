@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
 	"log"
 
 	"github.com/zbliujia/go-libp2p"
@@ -106,11 +107,11 @@ func run() {
 	// with the circuit relay service host
 	// As we will open a stream to unreachable2, unreachable2 needs to make the
 	// reservation
-	//_, err = client.Reserve(context.Background(), unreachable2, relay1info)
-	//if err != nil {
-	//	log.Printf("unreachable2 failed to receive a relay reservation from relay1. %v", err)
-	//	return
-	//}
+	_, err = client.Reserve(context.Background(), unreachable2, relay1info)
+	if err != nil {
+		log.Printf("unreachable2 failed to receive a relay reservation from relay1. %v", err)
+		return
+	}
 
 	// Now create a new address for unreachable2 that specifies to communicate via
 	// relay1 using a circuit relay
