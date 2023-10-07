@@ -46,11 +46,20 @@ func run() {
 
 	log.Println("First let's attempt to directly connect")
 
+	unreachable1info := peer.AddrInfo{
+		ID:    unreachable1.ID(),
+		Addrs: unreachable1.Addrs(),
+	}
+
+	log.Printf("unreachable1info=%+v", unreachable1info)
+
 	// Attempt to connect the unreachable hosts directly
 	unreachable2info := peer.AddrInfo{
 		ID:    unreachable2.ID(),
 		Addrs: unreachable2.Addrs(),
 	}
+
+	log.Printf("unreachable2info=%+v", unreachable2info)
 
 	err = unreachable1.Connect(context.Background(), unreachable2info)
 	if err == nil {
@@ -83,6 +92,8 @@ func run() {
 		ID:    relay1.ID(),
 		Addrs: relay1.Addrs(),
 	}
+
+	log.Printf("relay1info=%+v", relay1info)
 
 	// Connect both unreachable1 and unreachable2 to relay1
 	if err := unreachable1.Connect(context.Background(), relay1info); err != nil {
