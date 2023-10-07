@@ -6,7 +6,6 @@ import (
 
 	"github.com/zbliujia/go-libp2p"
 	"github.com/zbliujia/go-libp2p/p2p/net/swarm"
-	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/relay"
 
 	"github.com/zbliujia/go-libp2p/core/network"
@@ -107,11 +106,11 @@ func run() {
 	// with the circuit relay service host
 	// As we will open a stream to unreachable2, unreachable2 needs to make the
 	// reservation
-	_, err = client.Reserve(context.Background(), unreachable2, relay1info)
-	if err != nil {
-		log.Printf("unreachable2 failed to receive a relay reservation from relay1. %v", err)
-		return
-	}
+	//_, err = client.Reserve(context.Background(), unreachable2, relay1info)
+	//if err != nil {
+	//	log.Printf("unreachable2 failed to receive a relay reservation from relay1. %v", err)
+	//	return
+	//}
 
 	// Now create a new address for unreachable2 that specifies to communicate via
 	// relay1 using a circuit relay
@@ -134,6 +133,7 @@ func run() {
 		ID:    unreachable2.ID(),
 		Addrs: []ma.Multiaddr{relayaddr},
 	}
+	log.Printf("unreachable2relayinfo=%+v", unreachable2relayinfo)
 	if err := unreachable1.Connect(context.Background(), unreachable2relayinfo); err != nil {
 		log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
 		return
