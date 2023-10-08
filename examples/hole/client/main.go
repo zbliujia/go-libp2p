@@ -110,6 +110,11 @@ func run() {
 		log.Println("Whoops, this should have worked...: ", err)
 		return
 	}
-
-	s.Read(make([]byte, 1)) // block until the handler closes the stream
+	response := make([]byte, 102400)
+	n, err := s.Read(response) // block until the handler closes the stream
+	if err != nil {
+		log.Println("read...: ", err, n)
+	} else {
+		log.Println("read...: ", string(response), n)
+	}
 }

@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
+	"io"
 	"log"
 	"time"
 
@@ -77,7 +78,7 @@ func run() {
 	// Now, to test the communication, let's set up a protocol handler on unreachable2
 	unreachable2.SetStreamHandler("/customprotocol", func(s network.Stream) {
 		log.Println("Awesome! We're now communicating via the relay!")
-
+		io.WriteString(s, "hello world")
 		// End the example
 		s.Close()
 	})
