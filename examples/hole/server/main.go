@@ -1,12 +1,15 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"flag"
 	"fmt"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
 	"io"
 	"log"
+	"net/http"
+	"strings"
 	"time"
 
 	ma "github.com/multiformats/go-multiaddr"
@@ -83,6 +86,8 @@ func run() {
 		s.Close()
 	})
 
+	unreachable2.SetStreamHandler("/proxy-example/0.0.1", streamHandler)
+
 	// Hosts that want to have messages relayed on their behalf need to reserve a slot
 	// with the circuit relay service host
 	// As we will open a stream to unreachable2, unreachable2 needs to make the
@@ -118,4 +123,49 @@ func run() {
 		time.Sleep(time.Minute)
 	}
 
+}
+
+func streamHandler(stream network.Stream) {
+	// Remember to close the stream when we are done.
+	defer stream.Close()
+
+	// Create a new buffered reader, as ReadRequest needs one.
+	// The buffered reader reads from our stream, on which we
+	// have sent the HTTP request (see ServeHTTP())
+	buf := bufio.NewReader(stream)
+	// Read the HTTP request from the buffer
+	req, err := http.ReadRequest(buf)
+	if err != nil {
+		stream.Reset()
+		log.Println(err)
+		return
+	}
+	defer req.Body.Close()
+
+	// We need to reset these fields in the request
+	// URL as they are not maintained.
+	req.URL.Scheme = "http"
+	hp := strings.Split(req.Host, ":")
+	if len(hp) > 1 && hp[1] == "443" {
+		req.URL.Scheme = "https"
+	} else {
+		req.URL.Scheme = "http"
+	}
+	req.URL.Host = req.Host
+
+	outreq := new(http.Request)
+	*outreq = *req
+
+	// We now make the request
+	fmt.Printf("Making request to %s\n", req.URL)
+	resp, err := http.DefaultTransport.RoundTrip(outreq)
+	if err != nil {
+		stream.Reset()
+		log.Println(err)
+		return
+	}
+
+	// resp.Write writes whatever response we obtained for our
+	// request back to the stream.
+	resp.Write(stream)
 }
