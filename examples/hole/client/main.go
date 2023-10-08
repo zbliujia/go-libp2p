@@ -5,6 +5,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	ll "github.com/ipfs/go-log/v2"
 	manet "github.com/multiformats/go-multiaddr/net"
 	"github.com/zbliujia/go-libp2p/core/host"
 	"io"
@@ -18,6 +19,7 @@ import (
 )
 
 func main() {
+	ll.SetAllLoggers(ll.LevelDebug)
 	run()
 }
 

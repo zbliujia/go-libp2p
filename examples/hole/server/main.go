@@ -5,6 +5,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	ll "github.com/ipfs/go-log/v2"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/client"
 	"io"
 	"log"
@@ -19,6 +20,7 @@ import (
 )
 
 func main() {
+	ll.SetAllLoggers(ll.LevelDebug)
 	run()
 }
 

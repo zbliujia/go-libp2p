@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	ll "github.com/ipfs/go-log/v2"
 	"log"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 )
 
 func main() {
+	ll.SetAllLoggers(ll.LevelDebug)
 	run()
 }
 
