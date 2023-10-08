@@ -51,7 +51,7 @@ func run() {
 		Addrs: unreachable1.Addrs(),
 	}
 
-	log.Printf("unreachable1info=%+v", unreachable1info)
+	log.Printf("unreachable1info=%s", unreachable1info.String())
 
 	// Attempt to connect the unreachable hosts directly
 	unreachable2info := peer.AddrInfo{
@@ -59,7 +59,7 @@ func run() {
 		Addrs: unreachable2.Addrs(),
 	}
 
-	log.Printf("unreachable2info=%+v", unreachable2info)
+	log.Printf("unreachable2info=%s", unreachable2info.String())
 
 	err = unreachable1.Connect(context.Background(), unreachable2info)
 	if err == nil {
@@ -93,7 +93,7 @@ func run() {
 		Addrs: relay1.Addrs(),
 	}
 
-	log.Printf("relay1info=%+v", relay1info)
+	log.Printf("relay1info=%s", relay1info.String())
 
 	// Connect both unreachable1 and unreachable2 to relay1
 	if err := unreachable1.Connect(context.Background(), relay1info); err != nil {
@@ -145,7 +145,7 @@ func run() {
 		ID:    unreachable2.ID(),
 		Addrs: []ma.Multiaddr{relayaddr},
 	}
-	log.Printf("unreachable2relayinfo=%+v", unreachable2relayinfo)
+	log.Printf("unreachable2relayinfo=%s", unreachable2relayinfo.String())
 	if err := unreachable1.Connect(context.Background(), unreachable2relayinfo); err != nil {
 		log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
 		return
