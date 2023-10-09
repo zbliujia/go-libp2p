@@ -130,7 +130,7 @@ func run() {
 	// Let's start talking!
 	service := &ProxyService{
 		host:      unreachable1,
-		dest:      unreachable2relayinfo.ID,
+		destAddr:  unreachable2relayinfo,
 		proxyAddr: proxyAddr,
 	}
 	service.Serve()
@@ -138,8 +138,8 @@ func run() {
 }
 
 type ProxyService struct {
+	destAddr  peer.AddrInfo
 	host      host.Host
-	dest      peer.ID
 	proxyAddr ma.Multiaddr
 }
 
@@ -148,7 +148,7 @@ type ProxyService struct {
 func (p *ProxyService) Serve() {
 	_, serveArgs, _ := manet.DialArgs(p.proxyAddr)
 	fmt.Println("proxy listening on ", serveArgs)
-	if p.dest != "" {
+	if p.destAddr.ID != "" {
 		http.ListenAndServe(serveArgs, p)
 	}
 }
@@ -163,10 +163,15 @@ func (p *ProxyService) Serve() {
 // Streams are multiplexed over single connections so, unlike connections
 // themselves, they are cheap to create and dispose of.
 func (p *ProxyService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("proxying request for %s to peer %s\n", r.URL, p.dest)
+	fmt.Printf("proxying request for %s to peer %s\n", r.URL, p.destAddr.ID)
+	if err := p.host.Connect(context.Background(), p.destAddr); err != nil {
+		log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	// We need to send the request to the remote libp2p peer, so
 	// we open a stream to it
-	stream, err := p.host.NewStream(network.WithUseTransient(context.Background(), "proxy-example"), p.dest, "/proxy-example/0.0.1")
+	stream, err := p.host.NewStream(network.WithUseTransient(context.Background(), "proxy-example"), p.destAddr.ID, "/proxy-example/0.0.1")
 	// If an error happens, we write an error for response.
 	if err != nil {
 		log.Println(err)
