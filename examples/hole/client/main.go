@@ -30,8 +30,9 @@ func run() {
 	// configurations.
 	relay := flag.String("relay", "", "relay addrs")
 	d := flag.String("d", "", "d id")
+	o := flag.String("o", "", "other id")
 	flag.Parse()
-
+	println(o)
 	if *relay == "" {
 		fmt.Println("Please Use -relay ")
 		return
@@ -43,7 +44,8 @@ func run() {
 	}
 
 	unreachable1, err := libp2p.New(
-		libp2p.NoListenAddrs,
+		//libp2p.NoListenAddrs,
+		libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/10000", "/ip4/0.0.0.0/udp/10001/quic-v1"),
 		// Usually EnableRelay() is not required as it is enabled by default
 		// but NoListenAddrs overrides this, so we're adding it in explictly again.
 		libp2p.EnableRelay(),
@@ -79,16 +81,71 @@ func run() {
 	// Now create a new address for unreachable2 that specifies to communicate via
 	// relay1 using a circuit relay
 	//relayaddr, err := ma.NewMultiaddr(*relay + "/p2p-circuit/p2p/" + *d)
+	//relayaddr, err := ma.NewMultiaddr("/p2p/" + relay1info.ID.String() + "/p2p-circuit/p2p/" + *d)
+	//if err != nil {
+	//	log.Println(err)
+	//	return
+	//}
+	//
+	//id, err := peer.Decode(*d)
+	//if err != nil {
+	//	log.Println(err)
+	//	return
+	//}
+	//// Open a connection to the previously unreachable host via the relay address
+	//unreachable2relayinfo := peer.AddrInfo{
+	//	ID:    id,
+	//	Addrs: []ma.Multiaddr{relayaddr},
+	//}
+	//
+	//log.Printf("unreachable2relayinfo=%s", unreachable2relayinfo.String())
+	//if err := unreachable1.Connect(context.Background(), unreachable2relayinfo); err != nil {
+	//	log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
+	//	return
+	//}
+
+	log.Println("Yep, that worked!")
+	//sendTestMessage(relay1info, o, unreachable1)
+	unreachable2relayinfo, err := sendTestMessage(relay1info, d, unreachable1)
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+
+	proxyAddr, err := ma.NewMultiaddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", 9900))
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+	// Woohoo! we're connected!
+	// Let's start talking!
+	service := &ProxyService{
+		relayAddr: *relay1info,
+		host:      unreachable1,
+		destAddr:  *unreachable2relayinfo,
+		proxyAddr: proxyAddr,
+	}
+
+	print(peer.AddrInfo{
+		ID:    unreachable1.ID(),
+		Addrs: unreachable1.Addrs(),
+	}.String())
+
+	service.Serve()
+
+}
+
+func sendTestMessage(relay1info *peer.AddrInfo, d *string, unreachable1 host.Host) (*peer.AddrInfo, error) {
 	relayaddr, err := ma.NewMultiaddr("/p2p/" + relay1info.ID.String() + "/p2p-circuit/p2p/" + *d)
 	if err != nil {
 		log.Println(err)
-		return
+		return nil, err
 	}
 
 	id, err := peer.Decode(*d)
 	if err != nil {
 		log.Println(err)
-		return
+		return nil, err
 	}
 	// Open a connection to the previously unreachable host via the relay address
 	unreachable2relayinfo := peer.AddrInfo{
@@ -99,20 +156,13 @@ func run() {
 	log.Printf("unreachable2relayinfo=%s", unreachable2relayinfo.String())
 	if err := unreachable1.Connect(context.Background(), unreachable2relayinfo); err != nil {
 		log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
-		return
+		return nil, err
 	}
 
-	log.Println("Yep, that worked!")
-	// Because we don't have a direct connection to the destination node - we have a relayed connection -
-	// the connection is marked as transient. Since the relay limits the amount of data that can be
-	// exchanged over the relayed connection, the application needs to explicitly opt-in into using a
-	// relayed connection. In general, we should only do this if we have low bandwidth requirements,
-	// and we're happy for the connection to be killed when the relayed connection is replaced with a
-	// direct (holepunched) connection.
 	s, err := unreachable1.NewStream(network.WithUseTransient(context.Background(), "customprotocol"), unreachable2relayinfo.ID, "/customprotocol")
 	if err != nil {
 		log.Println("Whoops, this should have worked...: ", err)
-		return
+		return nil, err
 	}
 	response := make([]byte, 102400)
 	n, err := s.Read(response) // block until the handler closes the stream
@@ -121,23 +171,11 @@ func run() {
 	} else {
 		log.Println("read...: ", string(response), n)
 	}
-
-	proxyAddr, err := ma.NewMultiaddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", 9900))
-	if err != nil {
-		log.Fatalln(err)
-	}
-	// Woohoo! we're connected!
-	// Let's start talking!
-	service := &ProxyService{
-		host:      unreachable1,
-		destAddr:  unreachable2relayinfo,
-		proxyAddr: proxyAddr,
-	}
-	service.Serve()
-
+	return &unreachable2relayinfo, err
 }
 
 type ProxyService struct {
+	relayAddr peer.AddrInfo
 	destAddr  peer.AddrInfo
 	host      host.Host
 	proxyAddr ma.Multiaddr
@@ -164,6 +202,20 @@ func (p *ProxyService) Serve() {
 // themselves, they are cheap to create and dispose of.
 func (p *ProxyService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("proxying request for %s to peer %s\n", r.URL, p.destAddr.ID)
+
+	if p.host.Network().Connectedness(p.relayAddr.ID) == network.Connected {
+
+	}
+
+	if p.host.Network().Connectedness(p.destAddr.ID) == network.Connected {
+
+	}
+
+	if err := p.host.Connect(context.Background(), p.relayAddr); err != nil {
+		log.Printf("Unexpected error here. Failed to connect unreachable1 and relay: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	if err := p.host.Connect(context.Background(), p.destAddr); err != nil {
 		log.Printf("Unexpected error here. Failed to connect unreachable1 and unreachable2: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
