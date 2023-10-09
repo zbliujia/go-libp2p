@@ -95,11 +95,14 @@ func run() {
 	// with the circuit relay service host
 	// As we will open a stream to unreachable2, unreachable2 needs to make the
 	// reservation
-	// 这个东西 会断开的 需要保护
-	_, err = client.Reserve(context.Background(), unreachable2, *relay1info)
+	reserve, err := client.Reserve(context.Background(), unreachable2, *relay1info)
 	if err != nil {
 		log.Printf("unreachable2 failed to receive a relay reservation from relay1. %v", err)
 		return
+	}
+	// 这个东西 会断开的 需要保护
+	if reserve.Expiration.Before(time.Now()) {
+
 	}
 
 	// Now create a new address for unreachable2 that specifies to communicate via
@@ -122,7 +125,7 @@ func run() {
 	log.Println("Yep, that worked!")
 
 	for {
-		log.Printf("sleep")
+		log.Printf("sleep %+v", reserve.Expiration)
 		time.Sleep(time.Minute)
 	}
 
