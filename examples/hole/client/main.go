@@ -47,6 +47,7 @@ func run() {
 		// Usually EnableRelay() is not required as it is enabled by default
 		// but NoListenAddrs overrides this, so we're adding it in explictly again.
 		libp2p.EnableRelay(),
+		libp2p.EnableHolePunching(),
 	)
 	if err != nil {
 		log.Printf("Failed to create unreachable1: %v", err)

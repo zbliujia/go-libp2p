@@ -60,6 +60,7 @@ func run() {
 	unreachable2, err := libp2p.New(
 		libp2p.NoListenAddrs,
 		libp2p.EnableRelay(),
+		libp2p.EnableHolePunching(),
 	)
 	if err != nil {
 		log.Printf("Failed to create unreachable2: %v", err)
