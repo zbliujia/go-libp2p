@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	ll "github.com/ipfs/go-log/v2"
 	"log"
@@ -19,7 +20,8 @@ func main() {
 
 func run() {
 	// Create a host to act as a middleman to relay messages on our behalf
-	relay1, err := libp2p.New(libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/12000", "/ip4/0.0.0.0/udp/12001/quic-v1"))
+	port := flag.Int("p", 12000, "port")
+	relay1, err := libp2p.New(libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/tcp/%d", *port-1), fmt.Sprintf("/ip4/0.0.0.0/udp/%d/quic-v1", *port)))
 	if err != nil {
 		log.Printf("Failed to create relay1: %v", err)
 		return
