@@ -21,6 +21,7 @@ func main() {
 func run() {
 	// Create a host to act as a middleman to relay messages on our behalf
 	port := flag.Int("p", 12000, "port")
+	flag.Parse()
 	relay1, err := libp2p.New(libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/tcp/%d", *port-1), fmt.Sprintf("/ip4/0.0.0.0/udp/%d/quic-v1", *port)))
 	if err != nil {
 		log.Printf("Failed to create relay1: %v", err)
