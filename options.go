@@ -375,6 +375,13 @@ func EnableNATService() Option {
 	}
 }
 
+func EnableNATDialPolicy() Option {
+	return func(cfg *Config) error {
+		cfg.AutoNATConfig.EnableDialPolicy = true
+		return nil
+	}
+}
+
 // AutoNATServiceRateLimit changes the default rate limiting configured in helping
 // other peers determine their reachability status. When set, the host will limit
 // the number of requests it responds to in each 60 second period to the set
