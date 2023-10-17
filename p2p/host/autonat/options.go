@@ -77,6 +77,13 @@ func WithReachability(reachability network.Reachability) Option {
 	}
 }
 
+func WithDialPolicy() Option {
+	return func(c *config) error {
+		c.dialPolicy.allowSelfDials = true
+		return nil
+	}
+}
+
 // UsingAddresses allows overriding which Addresses the AutoNAT client believes
 // are "its own". Useful for testing, or for more exotic port-forwarding
 // scenarios where the host may be listening on different ports than it wants

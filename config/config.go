@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/zbliujia/go-libp2p/core/connmgr"
 	"github.com/zbliujia/go-libp2p/core/crypto"
 	"github.com/zbliujia/go-libp2p/core/event"
@@ -34,7 +35,6 @@ import (
 	relayv2 "github.com/zbliujia/go-libp2p/p2p/protocol/circuitv2/relay"
 	"github.com/zbliujia/go-libp2p/p2p/protocol/holepunch"
 	"github.com/zbliujia/go-libp2p/p2p/transport/quicreuse"
-	"github.com/prometheus/client_golang/prometheus"
 
 	ma "github.com/multiformats/go-multiaddr"
 	madns "github.com/multiformats/go-multiaddr-dns"
@@ -55,6 +55,7 @@ type RoutingC func(host.Host) (routing.PeerRouting, error)
 type AutoNATConfig struct {
 	ForceReachability   *network.Reachability
 	EnableService       bool
+	EnableDialPolicy    bool
 	ThrottleGlobalLimit int
 	ThrottlePeerLimit   int
 	ThrottleInterval    time.Duration
@@ -453,6 +454,9 @@ func (cfg *Config) NewNode() (host.Host, error) {
 	}
 	if cfg.AutoNATConfig.ForceReachability != nil {
 		autonatOpts = append(autonatOpts, autonat.WithReachability(*cfg.AutoNATConfig.ForceReachability))
+	}
+	if cfg.EnableDialPolicy {
+		autonatOpts = append(autonatOpts, autonat.WithDialPolicy())
 	}
 
 	autonat, err := autonat.New(h, autonatOpts...)
